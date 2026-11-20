@@ -1,0 +1,21 @@
+# Parâmetros do robô. Mude aqui, sem mexer no código.
+
+# Ativos que o robô acompanha
+ativos: [SPY, QQQ, AAPL, MSFT, NVDA, AMZN, GOOGL, META]
+
+# Estratégia (usada a partir da Fase 2)
+estrategia:
+  media_curta: 20        # média móvel rápida (dias)
+  media_longa: 50        # média móvel lenta (dias)
+  media_tendencia: 200   # filtro de tendência: só compra acima desta média
+  atr_periodo: 14
+  stop_atr: 2.0          # stop inicial = 2 x ATR abaixo da entrada
+  trailing_atr: 3.0      # stop móvel = 3 x ATR
+
+# Regras de risco (usadas a partir da Fase 4)
+risco:
+  risco_por_operacao: 0.01   # 1% do patrimônio por operação
+  max_posicoes: 5
+  max_por_ativo: 0.20        # no máximo 20% do patrimônio em um ativo
+  trava_diaria: 0.03         # perdeu 3% no dia -> não abre novas operações
+  kill_switch: 0.10          # caiu 10% desde o topo -> para tudo
