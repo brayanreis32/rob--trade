@@ -44,7 +44,10 @@ def decidir_modo(modo_env: str | None, perguntar=input) -> bool:
 
     print("\n*** ATENÇÃO: MODO=LIVE está ativo no .env. O robô usaria DINHEIRO REAL. ***")
     print(f'Para continuar, digite exatamente: {FRASE_CONFIRMACAO}')
-    resposta = perguntar("> ").strip()
+    try:
+        resposta = perguntar("> ").strip()
+    except EOFError:  # rodando sem terminal (ex.: agendado no servidor): não há como confirmar
+        resposta = ""
     if resposta != FRASE_CONFIRMACAO:
         raise ErroConfiguracao("Confirmação não recebida. Nada foi feito; o robô não vai operar.")
     return False

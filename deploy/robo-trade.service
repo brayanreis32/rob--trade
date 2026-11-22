@@ -1,0 +1,13 @@
+# Roda UM ciclo do robô. Quem chama é o robo-trade.timer.
+# Troque "robo" pelo seu usuário no servidor, se for outro.
+[Unit]
+Description=Robô de trade - ciclo do dia
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+Type=oneshot
+User=robo
+WorkingDirectory=/home/robo/rob--trade
+ExecStart=/home/robo/rob--trade/.venv/bin/python main.py rodar
+TimeoutStartSec=900

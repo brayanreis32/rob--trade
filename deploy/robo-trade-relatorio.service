@@ -1,0 +1,9 @@
+[Unit]
+Description=Robô de trade - relatório semanal
+After=network-online.target
+
+[Service]
+Type=oneshot
+User=robo
+WorkingDirectory=/home/robo/rob--trade
+ExecStart=/home/robo/rob--trade/.venv/bin/python main.py relatorio --telegram

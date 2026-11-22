@@ -1,0 +1,10 @@
+# Manda o relatório de desempenho para o Telegram toda sexta às 17:00 (Nova York).
+[Unit]
+Description=Relatório semanal do robô de trade
+
+[Timer]
+OnCalendar=Fri 17:00 America/New_York
+Unit=robo-trade-relatorio.service
+
+[Install]
+WantedBy=timers.target

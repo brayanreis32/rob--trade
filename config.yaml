@@ -5,6 +5,7 @@ ativos: [SPY, QQQ, AAPL, MSFT, NVDA, AMZN, GOOGL, META]
 
 # Estratégia (usada a partir da Fase 2)
 estrategia:
+  nome: cruzamento_medias
   media_curta: 20        # média móvel rápida (dias)
   media_longa: 50        # média móvel lenta (dias)
   media_tendencia: 200   # filtro de tendência: só compra acima desta média
@@ -19,3 +20,7 @@ risco:
   max_por_ativo: 0.20        # no máximo 20% do patrimônio em um ativo
   trava_diaria: 0.03         # perdeu 3% no dia -> não abre novas operações
   kill_switch: 0.10          # caiu 10% desde o topo -> para tudo
+
+# Dados
+dados:
+  feed: sip   # "sip" = todas as bolsas (grátis com 15 min de atraso). Alternativa: "iex"

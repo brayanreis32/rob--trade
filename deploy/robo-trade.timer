@@ -1,0 +1,15 @@
+# Agenda o robô de segunda a sexta, no horário de Nova York (o systemd ajusta o horário de verão).
+# 15:45 = 15 min antes do fechamento normal (16:00).
+# 12:45 = 15 min antes do fechamento nos dias de pregão curto (13:00). Nos dias normais,
+#         o robô vê que ainda faltam mais de 60 min e não faz nada; e ele nunca roda 2x no dia.
+[Unit]
+Description=Agenda do robô de trade
+
+[Timer]
+OnCalendar=Mon..Fri 12:45 America/New_York
+OnCalendar=Mon..Fri 15:45 America/New_York
+AccuracySec=30s
+Unit=robo-trade.service
+
+[Install]
+WantedBy=timers.target
