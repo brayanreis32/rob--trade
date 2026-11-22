@@ -34,11 +34,10 @@ pip install -r requirements.txt
 
 ### Criando o arquivo `.env` (suas chaves)
 
-1. Entre em [alpaca.markets](https://alpaca.markets), abra a conta **Paper** e clique em
-   **Generate New Keys**.
-2. Copie o modelo: `cp .env.example .env` (no Windows: `copy .env.example .env`).
-3. Abra o `.env` num editor de texto e cole a **API Key** e a **Secret Key** no lugar de
-   `cole_aqui_...`. Deixe `MODO=PAPER`.
+1. Entre em [alpaca.markets](https://alpaca.markets), abra a conta **Paper**, role a página
+   inicial até a caixa **API Keys** (lado direito) e clique em **Generate New Keys**.
+2. Rode `python configurar.py` e cole a **Key** e a **Secret** quando ele pedir (nada aparece
+   na tela enquanto você cola; é de propósito). Ele cria o `.env` no formato certo, com `MODO=PAPER`.
 
 O `.env` está no `.gitignore` e **nunca** vai para o GitHub. Não mande as chaves para
 ninguém nem cole no chat.
@@ -145,7 +144,7 @@ Oracle Cloud (tem plano grátis) etc. Escolha **Ubuntu 24.04**.
    cd rob--trade
    python3 -m venv .venv
    .venv/bin/pip install -r requirements.txt
-   nano .env          # cole o mesmo conteúdo do seu .env (Ctrl+O salva, Ctrl+X sai)
+   .venv/bin/python configurar.py   # cola as chaves (e o Telegram) e cria o .env
    chmod 600 .env     # só o usuário robo consegue ler as chaves
    .venv/bin/python main.py                 # tem que mostrar o saldo
    .venv/bin/python main.py telegram-teste  # tem que chegar no Telegram
@@ -219,6 +218,7 @@ e é por isso que vale olhar se ele chegou).
 | `notify.py` | avisos pelo Telegram |
 | `backtest.py` | simulação no passado (Fase 3) |
 | `main.py` | os comandos que você roda |
+| `configurar.py` | cria o `.env` com as suas chaves |
 | `deploy/` | agendamento no servidor (Fase 6) |
 | `tests/` | testes automáticos: `pytest` |
 
