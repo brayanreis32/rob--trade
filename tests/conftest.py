@@ -2,6 +2,8 @@ import numpy as np
 import pandas as pd
 import pytest
 
+import estado as memoria
+
 PARAMS = {"media_curta": 20, "media_longa": 50, "media_tendencia": 200,
           "atr_periodo": 14, "stop_atr": 2.0, "trailing_atr": 3.0}
 
@@ -32,3 +34,15 @@ def config():
         "risco": {"risco_por_operacao": 0.01, "max_posicoes": 5, "max_por_ativo": 0.20,
                   "trava_diaria": 0.03, "kill_switch": 0.10},
     }
+
+
+@pytest.fixture(autouse=True)
+def logs_temporarios(tmp_path, monkeypatch):
+    """Nenhum teste pode escrever nos arquivos reais de logs/ (estado e operações)."""
+    reais = (memoria.ARQUIVO_ESTADO, memoria.ARQUIVO_OPERACOES)
+    antes = [p.read_bytes() if p.exists() else None for p in reais]
+    monkeypatch.setattr(memoria, "ARQUIVO_ESTADO", tmp_path / "estado.json")
+    monkeypatch.setattr(memoria, "ARQUIVO_OPERACOES", tmp_path / "operacoes.csv")
+    yield
+    depois = [p.read_bytes() if p.exists() else None for p in reais]
+    assert antes == depois, "um teste mexeu nos arquivos reais de logs/"

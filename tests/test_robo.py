@@ -5,7 +5,6 @@ from types import SimpleNamespace
 from zoneinfo import ZoneInfo
 
 import numpy as np
-import pytest
 
 import broker
 import data
@@ -50,15 +49,6 @@ class Corretora:
         mp.setattr(broker, "zerar", lambda c, s: self.ordens.append(("zerar", s)))
         mp.setattr(data, "baixar_diario", lambda c, s, a, feed="sip": {k: v.copy() for k, v in dados.items() if k in s})
         mp.setattr(data, "completar_com_hoje", lambda c, d, h: None)
-
-
-@pytest.fixture(autouse=True)
-def estado_temporario(tmp_path, monkeypatch):
-    monkeypatch.setattr(memoria, "ARQUIVO_ESTADO", tmp_path / "estado.json")
-    monkeypatch.setattr(memoria, "ARQUIVO_OPERACOES", tmp_path / "operacoes.csv")
-    real_salvar, real_carregar = memoria.salvar, memoria.carregar
-    monkeypatch.setattr(memoria, "salvar", lambda e, caminho=None: real_salvar(e, tmp_path / "estado.json"))
-    monkeypatch.setattr(memoria, "carregar", lambda caminho=None: real_carregar(tmp_path / "estado.json"))
 
 
 def rodar(config, avisos=None, **kw):
